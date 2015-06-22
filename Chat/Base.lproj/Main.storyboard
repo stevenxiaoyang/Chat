@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DCk-ae-tUN" customClass="MessageTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="550"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="textCell" rowHeight="117" id="UZ8-y5-eC1" customClass="textCell">
@@ -266,8 +266,8 @@
                         <constraints>
                             <constraint firstItem="DCk-ae-tUN" firstAttribute="leading" secondItem="z1e-Dz-IAr" secondAttribute="leadingMargin" constant="-16" id="9R6-98-dRo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DCk-ae-tUN" secondAttribute="trailing" constant="-16" id="Y3I-FG-9t4"/>
-                            <constraint firstItem="DCk-ae-tUN" firstAttribute="top" secondItem="ZaD-14-AAh" secondAttribute="bottom" constant="-20" id="dtH-dW-eVF"/>
-                            <constraint firstItem="e8m-7J-czv" firstAttribute="top" secondItem="DCk-ae-tUN" secondAttribute="bottom" constant="50" id="iQa-1q-eP3"/>
+                            <constraint firstItem="DCk-ae-tUN" firstAttribute="top" secondItem="ZaD-14-AAh" secondAttribute="bottom" id="dtH-dW-eVF"/>
+                            <constraint firstItem="e8m-7J-czv" firstAttribute="top" secondItem="DCk-ae-tUN" secondAttribute="bottom" constant="49" id="iQa-1q-eP3"/>
                         </constraints>
                     </view>
                     <connections>
@@ -292,6 +292,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cmT-9B-Mi9" id="m7g-qf-rFd">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="q5C-da-c4A" kind="show" id="NBY-Cl-RVQ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

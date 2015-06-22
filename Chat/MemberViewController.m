@@ -106,14 +106,6 @@
 {
     return 50;
 }
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    UIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"Chat"];
-    [vc setHidesBottomBarWhenPushed:YES]; //隐藏tabbar
-    [self.navigationController pushViewController:vc animated:YES];
-}
 /*
 #pragma mark - Navigation
 

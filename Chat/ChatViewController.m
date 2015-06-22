@@ -40,6 +40,7 @@ typedef enum : NSUInteger {
 
 @property (assign,nonatomic)BOOL youOrMe; //模拟数据用的，要删除
 @property (strong,nonatomic)NSMutableArray *timeArray;
+@property (assign,nonatomic)BOOL isFirst;
 @end
 @implementation ChatViewController
 
@@ -52,6 +53,7 @@ typedef enum : NSUInteger {
     self.imagePiceker = [[UIImagePickerController alloc] init];
     self.imagePiceker.allowsEditing = YES;
     self.imagePiceker.delegate = self;
+    self.isFirst = YES;
     
     //用于读取存储历史纪录
     self.messageLogMode = [[MessageLogModelClass alloc]init];
@@ -83,11 +85,6 @@ typedef enum : NSUInteger {
     
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:YES];
-    [self scrollBottom];
-}
 -(void)addMySubView
 {
     //imageView实例化
@@ -130,7 +127,7 @@ typedef enum : NSUInteger {
     NSArray *toolViewContraintH = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_toolView]|" options:0 metrics:0 views:NSDictionaryOfVariableBindings(_toolView)];
     [self.view addConstraints:toolViewContraintH];
     
-    NSArray * tooViewConstraintV = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_toolView(44)]|" options:0 metrics:0 views:NSDictionaryOfVariableBindings(_toolView)];
+    NSArray * tooViewConstraintV = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_toolView(49)]|" options:0 metrics:0 views:NSDictionaryOfVariableBindings(_toolView)];
     [self.view addConstraints:tooViewConstraintV];
     self.tooViewConstraintHeight = tooViewConstraintV[0];
 }
@@ -438,6 +435,12 @@ typedef enum : NSUInteger {
     NSData * bodyData = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:bodyData options:NSJSONReadingAllowFragments error:nil];
     MySendContentType contentType = [[dic objectForKey:@"type"] integerValue];
+    
+    if (self.isFirst) {    //一出来就能拉倒最后一行
+        [self.chatTableView setContentOffset:CGPointMake(0, self.chatTableView.contentSize.height -self.chatTableView.bounds.size.height) animated:NO];
+        self.isFirst = NO;
+    }
+    
     switch (contentType) {
         case SendText:
         {
@@ -592,11 +595,12 @@ typedef enum : NSUInteger {
             for (NSInteger i = 0; i < fetchCount; i ++) {
                 [self.messageData insertObject:fetchArray[i] atIndex:0];
                 [self.timeArray insertObject:((HistoryMessageLog *)fetchArray[i]).time atIndex:0];
-                //NSIndexPath *tmp=[NSIndexPath indexPathForRow:i inSection:0];
-                //[reloadIndexPathArray addObject:tmp];
             }
             //[self.chatTableView reloadRowsAtIndexPaths:reloadIndexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
             [self.chatTableView reloadData];
+            //[self.chatTableView beginUpdates];
+            //[self.chatTableView insertRowsAtIndexPaths:reloadIndexPathArray withRowAnimation:UITableViewRowAnimationNone];
+            //[self.chatTableView endUpdates];
             [self.activity stopAnimating];
             self.chatTableView.tableHeaderView.hidden = YES;
             self.isRefresh = NO;
