@@ -437,7 +437,7 @@ typedef enum : NSUInteger {
     MySendContentType contentType = [[dic objectForKey:@"type"] integerValue];
     
     if (self.isFirst) {    //一出来就能拉倒最后一行
-        [self.chatTableView setContentOffset:CGPointMake(0, self.chatTableView.contentSize.height -self.chatTableView.bounds.size.height) animated:NO];
+        [self scrollBottom];
         self.isFirst = NO;
     }
     
